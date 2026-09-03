@@ -442,7 +442,7 @@
   <div class="hero-visual">
     <div class="hero-charly-bob">
       <div class="hero-charly-frame" id="charlyFrame">
-        <video autoplay muted loop playsinline preload="auto">
+        <video id="charlyVideo" muted playsinline preload="auto">
           <source src="charly-caballo.mp4" type="video/mp4">
         </video>
         <span class="hero-charly-tag">¡Hola, soy Charly! 👋</span>
@@ -744,30 +744,58 @@
 <script>
   (function() {
     var frame = document.getElementById('charlyFrame');
-    if (!frame) return;
-    var maxTilt = 20;
-    var maxShift = 16;
+    var video = document.getElementById('charlyVideo');
+    if (!frame || !video) return;
 
-    function tiltTo(clientX, clientY) {
+    var duration = 0;
+    var seeking = false;
+    var pendingTime = null;
+    var lastRequested = null;
+
+    video.addEventListener('loadedmetadata', function() {
+      duration = video.duration || 0;
+    });
+
+    function applySeek() {
+      if (pendingTime === null || !duration) return;
+      var t = pendingTime;
+      pendingTime = null;
+      if (Math.abs(video.currentTime - t) < 0.04) return;
+      seeking = true;
+      video.currentTime = t;
+    }
+
+    video.addEventListener('seeked', function() {
+      seeking = false;
+      applySeek();
+    });
+
+    function requestSeek(t) {
+      pendingTime = t;
+      if (!seeking) applySeek();
+    }
+
+    function updateFromMouse(clientX, clientY) {
+      if (!duration) return;
       var rect = frame.getBoundingClientRect();
       var cx = rect.left + rect.width / 2;
       var cy = rect.top + rect.height / 2;
-      var dx = Math.max(-1, Math.min(1, (clientX - cx) / (window.innerWidth / 2)));
-      var dy = Math.max(-1, Math.min(1, (clientY - cy) / (window.innerHeight / 2)));
-      var rotY = (dx * maxTilt).toFixed(2);
-      var rotX = (-dy * maxTilt).toFixed(2);
-      var shiftX = (dx * maxShift).toFixed(1);
-      var shiftY = (dy * maxShift).toFixed(1);
-      frame.style.transform = 'translate(' + shiftX + 'px,' + shiftY + 'px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+      var angle = Math.atan2(clientY - cy, clientX - cx);
+      var normalized = (angle + Math.PI) / (2 * Math.PI);
+      if (normalized === lastRequested) return;
+      lastRequested = normalized;
+      requestSeek(normalized * duration);
     }
 
     window.addEventListener('mousemove', function(e) {
-      tiltTo(e.clientX, e.clientY);
+      updateFromMouse(e.clientX, e.clientY);
     }, { passive: true });
 
-    document.addEventListener('mouseleave', function() {
-      frame.style.transform = 'translate(0,0) rotateX(0deg) rotateY(0deg)';
-    });
+    window.addEventListener('touchmove', function(e) {
+      if (e.touches && e.touches[0]) {
+        updateFromMouse(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
   })();
 </script>
 
