@@ -112,18 +112,19 @@
   .btn-secondary:hover { border-color: var(--blanco); background: rgba(255,255,255,0.08); }
 
   .hero-visual {
-    position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
-    width: 300px; animation: floatIn 1s 0.4s ease both;
-    perspective: 800px;
+    position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+    width: 420px; animation: floatIn 1s 0.4s ease both;
+    perspective: 1000px;
   }
   .hero-charly-bob { animation: charlyBob 4s ease-in-out infinite; }
   .hero-charly-frame {
     position: relative;
-    border-radius: 20px; overflow: hidden;
-    border: 2px solid rgba(212,160,23,0.5);
+    border-radius: 24px; overflow: hidden;
+    border: 3px solid rgba(212,160,23,0.5);
     box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     background: rgba(255,255,255,0.06);
-    transition: transform 0.15s ease-out;
+    transition: transform 0.12s ease-out;
+    will-change: transform;
   }
   .hero-charly-frame video {
     display: block; width: 100%; height: auto;
@@ -742,26 +743,30 @@
 
 <script>
   (function() {
-    var hero = document.querySelector('.hero');
     var frame = document.getElementById('charlyFrame');
-    if (!hero || !frame) return;
-    var maxTilt = 10;
+    if (!frame) return;
+    var maxTilt = 20;
+    var maxShift = 16;
 
     function tiltTo(clientX, clientY) {
       var rect = frame.getBoundingClientRect();
       var cx = rect.left + rect.width / 2;
       var cy = rect.top + rect.height / 2;
-      var dx = Math.max(-1, Math.min(1, (clientX - cx) / (rect.width * 1.5)));
-      var dy = Math.max(-1, Math.min(1, (clientY - cy) / (rect.height * 1.5)));
-      frame.style.transform = 'rotateX(' + (-dy * maxTilt).toFixed(2) + 'deg) rotateY(' + (dx * maxTilt).toFixed(2) + 'deg)';
+      var dx = Math.max(-1, Math.min(1, (clientX - cx) / (window.innerWidth / 2)));
+      var dy = Math.max(-1, Math.min(1, (clientY - cy) / (window.innerHeight / 2)));
+      var rotY = (dx * maxTilt).toFixed(2);
+      var rotX = (-dy * maxTilt).toFixed(2);
+      var shiftX = (dx * maxShift).toFixed(1);
+      var shiftY = (dy * maxShift).toFixed(1);
+      frame.style.transform = 'translate(' + shiftX + 'px,' + shiftY + 'px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
     }
 
-    hero.addEventListener('mousemove', function(e) {
+    window.addEventListener('mousemove', function(e) {
       tiltTo(e.clientX, e.clientY);
     }, { passive: true });
 
-    hero.addEventListener('mouseleave', function() {
-      frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    document.addEventListener('mouseleave', function() {
+      frame.style.transform = 'translate(0,0) rotateX(0deg) rotateY(0deg)';
     });
   })();
 </script>
