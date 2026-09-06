@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -262,29 +263,23 @@
   /* ===== Librero "Plan de estudios" ===== */
   .shelf-grid{ grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); }
   .shelf-cell{
-    position:relative; overflow:hidden; min-height:236px; padding:22px 24px 26px; border-radius:10px;
+    position:relative; overflow:hidden; min-height:236px; padding:22px 24px 26px; border-radius:11px;
     background-image:
-      linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,0) 14%, rgba(0,0,0,0) 78%, rgba(0,0,0,.28) 100%),
-      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0MDAnIGhlaWdodD0nNDAwJz4KICA8ZmlsdGVyIGlkPSd3Jz4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjAwOCAwLjYnIG51bU9jdGF2ZXM9JzUnIHNlZWQ9JzExJyByZXN1bHQ9J24nLz4KICAgIDxmZUNvbG9yTWF0cml4IGluPSduJyB0eXBlPSdtYXRyaXgnIHZhbHVlcz0nMCAwIDAgMCAwLjIwICAwIDAgMCAwIDAuMTAgIDAgMCAwIDAgMC4wMiAgMCAwIDAgMS4xIC0wLjM1Jy8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9JzQwMCcgaGVpZ2h0PSc0MDAnIGZpbHRlcj0ndXJsKCN3KScgdHJhbnNmb3JtPSdyb3RhdGUoOCAyMDAgMjAwKScgb3BhY2l0eT0nMC45Jy8+Cjwvc3ZnPgo="),
-      linear-gradient(135deg, #D9AD73 0%, #C6905A 35%, #A9743F 70%, #8B5C30 100%);
+      radial-gradient(120% 60% at 50% -10%, rgba(255,233,176,.55) 0%, rgba(255,233,176,.14) 45%, rgba(255,233,176,0) 75%),
+      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMDAnIGhlaWdodD0nMzAwJz4KICA8ZmlsdGVyIGlkPSd3Jz4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjkgMC4wMTInIG51bU9jdGF2ZXM9JzQnIHNlZWQ9JzQnIHJlc3VsdD0nbicvPgogICAgPGZlQ29sb3JNYXRyaXggaW49J24nIHR5cGU9J21hdHJpeCcgdmFsdWVzPScwIDAgMCAwIDAuMjUgIDAgMCAwIDAgMC4xNCAgMCAwIDAgMCAwLjA1ICAwIDAgMCAwLjYgLTAuMTUnLz4KICA8L2ZpbHRlcj4KICA8cmVjdCB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgZmlsdGVyPSd1cmwoI3cpJy8+Cjwvc3ZnPgo="),
+      linear-gradient(135deg, #CBA991 0%, #B4906A 55%, #96714F 100%);
     background-size:100% 100%, cover, 100% 100%;
     background-blend-mode:normal, multiply, normal;
-    border:2.5px solid #5C3A1A;
-    box-shadow:inset 0 3px 8px rgba(0,0,0,.4), inset 0 -14px 22px rgba(0,0,0,.22), inset 3px 0 6px rgba(0,0,0,.12), 0 8px 16px rgba(40,20,5,.35);
+    border:2px solid #5E3F27;
+    box-shadow:inset 0 2px 5px rgba(0,0,0,.28), inset 0 -10px 16px rgba(0,0,0,.14), 0 6px 12px rgba(40,20,5,.25);
   }
-  .shelf-cell::before{
-    content:''; position:absolute; top:0; left:0; right:0; height:7px;
-    background:linear-gradient(90deg, rgba(255,224,168,.65), rgba(255,224,168,.15));
-  }
-  .shelf-cell .sc-top h3{color:#3A2410; text-shadow:0 1px 0 rgba(255,255,255,.25);}
-  .shelf-cell .sc-pct{text-shadow:0 1px 0 rgba(255,255,255,.25);}
-  .shelf-cell .nudge-green, .shelf-cell .nudge-gold, .shelf-cell .nudge-rust{color:#5B3E1E;}
-  .shelf-cell .sc-meta{color:#5A3C1E;}
-  .shelf-cell .pulse-mini{background:rgba(0,0,0,.22);}
-  .shelf-cell .sc-cta{background:#7A3B1D; cursor:pointer;}
-  .shelf-cell .sc-cta:hover{background:#5B3E1E;}
-  .shelf-cell .admin-btn.secondary{background:#F4E3C1; color:#5A3115; border:1px solid rgba(90,49,21,.28);}
-  .shelf-cell .admin-btn.secondary:hover{background:#FFF6E6; transform:none;}
+  .shelf-cell .sc-top h3{color:#3E2A17; text-shadow:0 1px 0 rgba(255,255,255,.18);}
+  .shelf-cell .sc-meta{color:#7A6449;}
+  .shelf-cell .pulse-mini{background:#EDE3CC;}
+  .shelf-cell .sc-cta{background:#C2A47E; color:#3E2A17; cursor:pointer; box-shadow:0 2px 4px rgba(40,20,5,.22);}
+  .shelf-cell .sc-cta:hover{background:#AE8E68;}
+  .shelf-cell .admin-btn.secondary{background:#DCD5B8; color:#3E2A17; border:none; box-shadow:0 2px 4px rgba(40,20,5,.18);}
+  .shelf-cell .admin-btn.secondary:hover{background:#E8E2CC; transform:none;}
 
   .shelf-books{display:none; flex-direction:column;}
   .shelf-cell.showing-books .shelf-info{display:none;}
