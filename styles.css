@@ -1,109 +1,53 @@
-/* ======================================================================
-   TARJETA DE MATERIA — estética de libro/placa antigua de biblioteca
-   El diseño visual vive en el SVG (index.html). Este archivo se ocupa de:
-   reset, contenedor responsive, tipografía y el hover del botón.
-   ====================================================================== */
-
 *{ box-sizing:border-box; }
 
 html,body{
-  margin:0;
-  padding:0;
-  min-height:100vh;
-  background:#1a1410;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  margin:0; padding:0; min-height:100vh;
+  background:#161009;
+  display:flex; align-items:center; justify-content:center;
   font-family:Georgia,'Times New Roman',serif;
+}
+
+.book-container{ width:100%; max-width:900px; padding:20px; }
+
+#book-path-svg{
+  display:block; width:100%; height:auto;
+  aspect-ratio:900 / 540;
+  filter:drop-shadow(0 18px 30px rgba(0,0,0,.5));
 }
 
 /* ============================================================
-   Contenedor responsive: mantiene la relación 500 / 300
+   Estaciones del sendero
    ============================================================ */
-.card-container{
-  width:100%;
-  max-width:500px;
-  padding:24px;
-}
+.station{ cursor:pointer; }
+.station.locked{ cursor:not-allowed; }
 
-#subject-card{
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:500 / 300;
-}
+.station-pill{ transition:filter .2s ease, transform .2s ease; }
+.station:not(.locked):hover .station-pill{ filter:brightness(1.12); transform:translateY(-2px); }
+.station:not(.locked):hover{ }
 
-/* ============================================================
-   Tipografía dentro del SVG
-   ============================================================ */
-.txt-title{
+.station-text{
   font-family:Georgia,'Times New Roman',serif;
-  font-size:30px;
   font-weight:700;
-  fill:#EFE3BC;
+  fill:#E4AC21;
+}
+.station.locked .station-text{ fill:#8A8368; }
+.station.completed .station-text{ fill:#F3D98A; }
+.station.current .station-text{ fill:#FFF3D0; }
+
+.station-pill-bg{ fill:#0A5744; stroke:url(#goldPill); stroke-width:2.4; }
+.station.locked .station-pill-bg{ fill:#3A3A32; stroke:#6B644E; opacity:.75; }
+.station.current .station-pill-bg{ stroke-width:3; }
+
+.path-track-line{
+  fill:none; stroke:#B9860F; stroke-width:3; stroke-dasharray:2 10; stroke-linecap:round;
+  opacity:.55;
+}
+.path-track-line--done{
+  stroke:#E4AC21; stroke-dasharray:none; opacity:.9;
 }
 
-.txt-pct{
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:44px;
-  font-weight:700;
-  fill:#EFE3BC;
-}
+.path-arrow{ fill:#B9860F; opacity:.7; }
 
-.txt-message{
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:15px;
-  font-weight:400;
-  fill:#DCCF9F;
-}
-
-.txt-stat-value{
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:19px;
-  font-weight:700;
-  fill:#EFE3BC;
-}
-.txt-stat-value--small{
-  font-size:15px;
-}
-
-.txt-stat-label{
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:11px;
-  font-weight:400;
-  fill:#B9AC7E;
-}
-
-.txt-button{
-  font-family:Georgia,'Times New Roman',serif;
-  font-size:16px;
-  font-weight:700;
-  fill:#EFE3BC;
-}
-
-.progress-track{
-  fill:#000000;
-  opacity:0.32;
-}
-
-/* ============================================================
-   Botón "Continuar" — hover sutil, sin animaciones exageradas
-   ============================================================ */
-.continue-btn{ cursor:pointer; }
-.continue-btn-bg{
-  fill:rgba(0,0,0,0.18);
-  transition:fill .2s ease, filter .2s ease;
-}
-.continue-btn:hover .continue-btn-bg,
-.continue-btn:focus-visible .continue-btn-bg{
-  fill:rgba(255,255,255,0.08);
-  filter:brightness(1.12);
-}
-.continue-btn:hover{ filter:drop-shadow(0 3px 6px rgba(0,0,0,0.45)); }
-.continue-btn:focus-visible{ outline:none; }
-.continue-btn:focus-visible .continue-btn-bg{ stroke:#F1DFA0; }
-
-/* En pantallas muy angostas, un pequeño margen extra */
-@media (max-width:360px){
-  .card-container{ padding:14px; }
+@media (max-width:420px){
+  .book-container{ padding:10px; }
 }
