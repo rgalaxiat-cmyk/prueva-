@@ -1,0 +1,109 @@
+/* ======================================================================
+   TARJETA DE MATERIA — estética de libro/placa antigua de biblioteca
+   El diseño visual vive en el SVG (index.html). Este archivo se ocupa de:
+   reset, contenedor responsive, tipografía y el hover del botón.
+   ====================================================================== */
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+  background:#1a1410;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Georgia,'Times New Roman',serif;
+}
+
+/* ============================================================
+   Contenedor responsive: mantiene la relación 500 / 300
+   ============================================================ */
+.card-container{
+  width:100%;
+  max-width:500px;
+  padding:24px;
+}
+
+#subject-card{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:500 / 300;
+}
+
+/* ============================================================
+   Tipografía dentro del SVG
+   ============================================================ */
+.txt-title{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:30px;
+  font-weight:700;
+  fill:#EFE3BC;
+}
+
+.txt-pct{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:44px;
+  font-weight:700;
+  fill:#EFE3BC;
+}
+
+.txt-message{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:15px;
+  font-weight:400;
+  fill:#DCCF9F;
+}
+
+.txt-stat-value{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:19px;
+  font-weight:700;
+  fill:#EFE3BC;
+}
+.txt-stat-value--small{
+  font-size:15px;
+}
+
+.txt-stat-label{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:11px;
+  font-weight:400;
+  fill:#B9AC7E;
+}
+
+.txt-button{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:16px;
+  font-weight:700;
+  fill:#EFE3BC;
+}
+
+.progress-track{
+  fill:#000000;
+  opacity:0.32;
+}
+
+/* ============================================================
+   Botón "Continuar" — hover sutil, sin animaciones exageradas
+   ============================================================ */
+.continue-btn{ cursor:pointer; }
+.continue-btn-bg{
+  fill:rgba(0,0,0,0.18);
+  transition:fill .2s ease, filter .2s ease;
+}
+.continue-btn:hover .continue-btn-bg,
+.continue-btn:focus-visible .continue-btn-bg{
+  fill:rgba(255,255,255,0.08);
+  filter:brightness(1.12);
+}
+.continue-btn:hover{ filter:drop-shadow(0 3px 6px rgba(0,0,0,0.45)); }
+.continue-btn:focus-visible{ outline:none; }
+.continue-btn:focus-visible .continue-btn-bg{ stroke:#F1DFA0; }
+
+/* En pantallas muy angostas, un pequeño margen extra */
+@media (max-width:360px){
+  .card-container{ padding:14px; }
+}
