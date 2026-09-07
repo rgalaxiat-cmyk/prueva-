@@ -3,120 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarjeta de materia — Campus</title>
+<title>Sendero de materia — Libro abierto</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="card-container">
+  <div class="book-container">
     <svg
-      id="subject-card"
-      viewBox="0 0 500 300"
+      id="book-path-svg"
+      viewBox="0 0 900 540"
       preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-labelledby="cardTitleA11y">
+      aria-labelledby="bookTitleA11y">
 
-      <title id="cardTitleA11y">Tarjeta de materia</title>
+      <title id="bookTitleA11y">Sendero de la materia: Lectura, Videos, Mapas Conceptuales, Examen</title>
 
-      <!-- ============================================================ -->
-      <!-- DEFS: degradados, textura y sombra reutilizables               -->
-      <!-- Los colores de bgGradient/spineGradient/goldBorder se          -->
-      <!-- actualizan desde script.js según la materia (loadSubject).     -->
-      <!-- ============================================================ -->
       <defs>
-
-        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop id="bgStop0" offset="0%"  stop-color="#3E6B4C"/>
-          <stop id="bgStop1" offset="45%" stop-color="#26502F"/>
-          <stop id="bgStop2" offset="100%" stop-color="#132C1B"/>
+        <linearGradient id="paperGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"  stop-color="#FBF6E8"/>
+          <stop offset="60%" stop-color="#F1E9D2"/>
+          <stop offset="100%" stop-color="#E4D8B8"/>
         </linearGradient>
 
-        <linearGradient id="spineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop id="spineStop0" offset="0%"  stop-color="#1C3A24"/>
-          <stop id="spineStop1" offset="55%" stop-color="#4E7C5A"/>
-          <stop id="spineStop2" offset="100%" stop-color="#2A5033"/>
+        <linearGradient id="coverGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#0B3A2C"/>
+          <stop offset="100%" stop-color="#0A5744"/>
         </linearGradient>
 
-        <linearGradient id="goldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%"   stop-color="#C7B26A"/>
-          <stop offset="30%"  stop-color="#9C8438"/>
-          <stop offset="65%"  stop-color="#6E5A28"/>
-          <stop offset="100%" stop-color="#4A3D1E"/>
+        <linearGradient id="coverGradientR" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#0A5744"/>
+          <stop offset="100%" stop-color="#0B3A2C"/>
         </linearGradient>
 
-        <linearGradient id="goldBarGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stop-color="#E7D9A0"/>
-          <stop offset="100%" stop-color="#C7B36A"/>
+        <linearGradient id="spineShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#000000" stop-opacity="0"/>
+          <stop offset="50%"  stop-color="#000000" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
         </linearGradient>
 
-        <radialGradient id="topLight" cx="30%" cy="0%" r="85%">
-          <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.16"/>
-          <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.04"/>
-          <stop offset="100%" stop-color="#000000" stop-opacity="0.22"/>
-        </radialGradient>
+        <linearGradient id="goldPill" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"  stop-color="#E4AC21"/>
+          <stop offset="100%" stop-color="#B9860F"/>
+        </linearGradient>
 
-        <!-- textura tipo cuero/tela envejecida -->
-        <filter id="leatherTexture" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="11" result="noise"/>
-          <feColorMatrix in="noise" type="matrix"
-            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0" result="noiseAlpha"/>
-          <feBlend in="SourceGraphic" in2="noiseAlpha" mode="multiply"/>
+        <!-- textura de papel (grano sutil) -->
+        <filter id="paperTexture" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="5" result="noise"/>
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.4  0 0 0 0 0.35  0 0 0 0 0.22  0 0 0 0.12 0"/>
         </filter>
 
-        <!-- sombra exterior: la tarjeta "apoyada" sobre el estante -->
-        <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000000" flood-opacity="0.5"/>
+        <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+        </filter>
+        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#E4AC21" flood-opacity="0.65"/>
         </filter>
 
-        <clipPath id="cardClip">
-          <rect x="2" y="2" width="496" height="296" rx="14" ry="14"/>
-        </clipPath>
+        <clipPath id="leftPageClip"><rect x="50" y="20" width="395" height="500" rx="14"/></clipPath>
+        <clipPath id="rightPageClip"><rect x="455" y="20" width="395" height="500" rx="14"/></clipPath>
       </defs>
 
       <!-- ============================================================ -->
-      <!-- TARJETA                                                        -->
+      <!-- TAPAS / CANTOS DEL LIBRO (referencia a la tarjeta de materia) -->
       <!-- ============================================================ -->
-      <g filter="url(#cardShadow)">
-        <rect x="2" y="2" width="496" height="296" rx="14" ry="14"
-              fill="url(#bgGradient)" stroke="url(#goldBorder)" stroke-width="3"/>
-      </g>
-
-      <g clip-path="url(#cardClip)">
-        <!-- textura sutil -->
-        <rect x="2" y="2" width="496" height="296" fill="#3E6B4C" filter="url(#leatherTexture)" opacity="0.5"/>
-        <!-- iluminación superior -->
-        <rect x="2" y="2" width="496" height="296" fill="url(#topLight)"/>
-        <!-- lomo del libro (lado izquierdo) -->
-        <rect id="spineRect" x="2" y="2" width="26" height="296" fill="url(#spineGradient)"/>
-        <rect x="15" y="2" width="2" height="296" fill="#FFFFFF" opacity="0.16"/>
-      </g>
-
-      <!-- borde interior fino -->
-      <rect x="11" y="11" width="478" height="278" rx="10" ry="10"
-            fill="none" stroke="#E7D9A0" stroke-width="1" opacity="0.35"/>
+      <rect x="10" y="10" width="40" height="520" rx="8" fill="url(#coverGradient)" stroke="url(#goldPill)" stroke-width="2"/>
+      <rect x="850" y="10" width="40" height="520" rx="8" fill="url(#coverGradientR)" stroke="url(#goldPill)" stroke-width="2"/>
 
       <!-- ============================================================ -->
-      <!-- CONTENIDO (poblado/actualizado por script.js)                  -->
+      <!-- PÁGINAS                                                        -->
       <!-- ============================================================ -->
-      <text id="titleText" x="46" y="60" class="txt-title">Histología</text>
-      <text id="pctText" x="466" y="66" class="txt-pct" text-anchor="end">100%</text>
-      <text id="messageText" x="46" y="98" class="txt-message">¡Excelente ritmo, no aflojés!</text>
-
-      <rect x="46" y="120" width="408" height="10" rx="5" class="progress-track"/>
-      <rect id="progressFill" x="46" y="120" width="408" height="10" rx="5" fill="url(#goldBarGradient)"/>
-
-      <text id="statValue1" x="46" y="163" class="txt-stat-value">5/5</text>
-      <text id="statLabel1" x="46" y="180" class="txt-stat-label">completados</text>
-
-      <text id="statValue2" x="184" y="163" class="txt-stat-value txt-stat-value--small">2/2 clases · 2/2 material · 1/1</text>
-      <text id="statLabel2" x="184" y="180" class="txt-stat-label">evaluación</text>
-
-      <g id="continueBtn" class="continue-btn" tabindex="0" role="button" aria-label="Continuar">
-        <rect x="46" y="218" width="184" height="44" rx="22" ry="22"
-              class="continue-btn-bg" stroke="url(#goldBorder)" stroke-width="1.8"/>
-        <text id="buttonText" x="138" y="245" text-anchor="middle" class="txt-button">Continuar →</text>
+      <g filter="url(#softShadow)">
+        <rect x="50" y="20" width="395" height="500" rx="14" fill="url(#paperGradient)"/>
+        <rect x="455" y="20" width="395" height="500" rx="14" fill="url(#paperGradient)"/>
       </g>
+      <g clip-path="url(#leftPageClip)">
+        <rect x="50" y="20" width="395" height="500" filter="url(#paperTexture)"/>
+      </g>
+      <g clip-path="url(#rightPageClip)">
+        <rect x="455" y="20" width="395" height="500" filter="url(#paperTexture)"/>
+      </g>
+      <!-- sombra del pliegue central -->
+      <rect x="415" y="20" width="70" height="500" fill="url(#spineShadow)"/>
+
+      <!-- ============================================================ -->
+      <!-- SENDERO: se dibuja/actualiza desde script.js (renderPath)      -->
+      <!-- ============================================================ -->
+      <g id="path-track"></g>
+      <g id="path-arrows"></g>
+      <g id="path-stations"></g>
 
     </svg>
   </div>
